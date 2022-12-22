@@ -1,14 +1,23 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        carryOver = 1
-        for i in range(len(digits)-1, -1, -1):
-            temp = digits[i] + carryOver
-            if temp>9:
-                digits[i] = 0
+        carry = 0
+        
+        for i in range(len(digits) - 1, -1, -1):
+            if i == len(digits) - 1:
+                temp = carry + digits[i] + 1
+            
+            else:
+                temp = carry + digits[i]
+                
+            if temp > 9:
+                digits[i] = temp % 10
+                
             else:
                 digits[i] = temp
-                carryOver = 0
-                break
-        if carryOver == 1 and i == 0:
-            digits.insert(0, 1)
+                
+            carry = temp // 10
+            
+        if carry > 0 :
+            digits.insert(0,carry)
+            
         return digits
