@@ -1,0 +1,6 @@
+n = int(input())
+englishSub = set(map(int, input().split()))
+b = int(input())
+frenchSub = set(map(int, input().split()))   
+union = englishSub.union(frenchSub)
+print(len(union))
