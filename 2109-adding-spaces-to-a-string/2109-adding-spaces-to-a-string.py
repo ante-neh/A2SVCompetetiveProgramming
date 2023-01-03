@@ -1,17 +1,15 @@
 class Solution:
     def addSpaces(self, s: str, spaces: List[int]) -> str:
         modifiedString = []
-        j = 0
+        spaceIndex = 0
         
-        for i in range(len(s)):
-            if j < len(spaces) and i == spaces[j]:
+        for stringIndex in range(len(s)):
+            if spaceIndex < len(spaces) and stringIndex == spaces[spaceIndex]:
                 modifiedString.append(" ")
-                modifiedString.append(s[i])
-                j += 1
+                spaceIndex += 1
                 
-            else:
-                modifiedString.append(s[i])
-                
+            modifiedString.append(s[stringIndex])
+            
         return "".join(modifiedString)
     
                 
