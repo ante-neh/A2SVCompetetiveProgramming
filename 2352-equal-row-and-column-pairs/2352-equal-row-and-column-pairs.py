@@ -1,20 +1,19 @@
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
-        def transposeMatrix(row): # it takes one parameter because the matrix grid is n x n
-            transpose = [[0] * row for i in range(row)]
-            
-            for c in range(row):
-                for r in range(row):
-                    transpose[c][r] = grid[r][c]
-                    
-            return transpose
+        rowFreq = defaultdict(int)
         
-        transposeGrid = transposeMatrix(len(grid))        
+        for row in range(len(grid)):
+            rowFreq[tuple(grid[row])] += 1 
+            
         numberOfPairs = 0
         
-        for row in grid:
-            for column in transposeGrid:
-                if column == row:
-                    numberOfPairs += 1
+        for r in range(len(grid)):
+            column = []
+            for c in range(len(grid)):
+                column.append(grid[c][r])
                 
+            numberOfPairs += rowFreq[tuple(column)]
+            
         return numberOfPairs
+                    
+                
