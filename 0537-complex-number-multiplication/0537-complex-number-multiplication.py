@@ -8,6 +8,5 @@ class Solution:
         c = int(num2[0])
         d = int(num2[1][:-1])
         
-        product = str((a * c) - (b * d)) + "+" + str((b * c) + (a * d)) +"i"
         
-        return product
+        return str((a * c) - (b * d)) + "+" + str((b * c) + (a * d)) +"i"
