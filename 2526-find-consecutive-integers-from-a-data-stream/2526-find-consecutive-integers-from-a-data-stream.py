@@ -1,18 +1,17 @@
 class DataStream:
 
     def __init__(self, value: int, k: int):
-        self.dataStream = [value, k]
         self.val = value
         self.counter = k
-        self.count = 0
+        self.dataStream = 0
     def consec(self, num: int) -> bool:
         if num == self.val:
-            self.count += 1
+            self.dataStream += 1
         else:
-            self.count = 0
+            self.dataStream = 0
             
-        if self.count == self.counter:
-            self.count -= 1
+        if self.dataStream == self.counter:
+            self.dataStream -= 1
             return True
         else:
             return False
