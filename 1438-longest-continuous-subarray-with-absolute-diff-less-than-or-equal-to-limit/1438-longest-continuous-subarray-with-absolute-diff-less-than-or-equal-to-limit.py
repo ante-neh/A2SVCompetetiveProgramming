@@ -17,18 +17,20 @@ class Solution:
             if minQueue and minQueue[0] == curr:
                 minQueue.pop(0)
                 
-                
-        
-        for right in range(len(nums)):
-            while maxQueue and maxQueue[-1] < nums[right]:
+        def add(val):
+            while maxQueue and maxQueue[-1] < val:
                 maxQueue.pop()
                 
             maxQueue.append(nums[right])
             
-            while minQueue and minQueue[-1] > nums[right]:
+            while minQueue and minQueue[-1] > val:
                 minQueue.pop()
                 
             minQueue.append(nums[right])
+            
+            
+        for right in range(len(nums)):
+            add(nums[right])
             
             while not good():
                 remove(left)
