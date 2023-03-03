@@ -1,30 +1,21 @@
 class Solution:
-    def findKthBit(self, n: int, k: int) -> str:
-        def invert(strs):
-            strs = list(strs)
-            for i in range(len(strs)):
-                if strs[i] == "0":
-                    strs[i] = "1"
-                else:
-                    strs[i] = "0"
-                    
-            return "".join(strs)
+    def findKthBit(self, n: int, k: int) -> str:   
+        def bit(n):
+            if n == 1:
+                return "0"
+            prev = bit(n - 1)
+            invert = ""
+            for c in prev:
+                if c == "0":
+                    invert += "1"
+                elif c == "1":
+                    invert += "0"
+            
+            return prev + "1" + invert[::-1]
         
-        def reverse(strs):
-            return strs[::-1]
+        S = bit(n)
         
-        def helper(j, bits):
-            if j == n:
-                return bits
-            else:
-                bits.append(bits[j - 1] + "1" + reverse(invert(bits[j - 1])))
-                return helper(j + 1, bits)
-                
-                
-        bits = ["0"]
-        result = helper(1, bits)
-        return result[n - 1][k - 1]
-        
+        return S[k - 1]
             
             
             
