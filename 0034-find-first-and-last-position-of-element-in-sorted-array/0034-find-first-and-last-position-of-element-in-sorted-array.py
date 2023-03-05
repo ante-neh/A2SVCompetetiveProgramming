@@ -1,36 +1,33 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        left, right = 0, len(nums) - 1
-        first = -1
-        while left <= right:
-            mid = left + (right - left) // 2
-            
-            if nums[mid] == target:
-                first = mid
-                right = mid - 1
-                
-            elif nums[mid] < target:
-                left = mid + 1
-                
-            else:
-                right = mid - 1
-                
-        last = -1
-        left, right = 0, len(nums) - 1
+        firstPos, lastPos = -1, -1
         
-        while left <= right:
+        left, right = -1, len(nums)
+        
+        while left + 1 < right:
             mid = left + (right - left) // 2
-            
-            if nums[mid] == target:
-                last = mid
-                left = mid + 1
-                
-            elif nums[mid] < target:
-                left = mid + 1
+            if nums[mid] < target:
+                left = mid
             else:
-                right = mid - 1
+                right = mid
                 
-        return [first, last]
+        if right != len(nums) and nums[right] == target:
+            firstPos = right
+            
+        left, right = -1, len(nums)
+        
+        while left + 1 < right:
+            mid = left + (right - left) // 2
+            if nums[mid] <= target:
+                left = mid
+                
+            else:
+                right = mid
+                
+        if left != -1 and nums[left] == target:
+            lastPos = left
+            
+        return [firstPos, lastPos]
                 
         
 
