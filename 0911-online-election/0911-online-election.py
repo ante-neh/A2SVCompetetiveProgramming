@@ -1,18 +1,17 @@
 class TopVotedCandidate:
 
     def __init__(self, persons: List[int], times: List[int]):
-        self.persons = persons
         self.times = times
-        self.winner = [0] * len(self.persons)
+        self.winner = [0] * len(persons)
         freqCount = {}
         
-        for i in range(len(self.persons)):
-            freqCount[self.persons[i]] = 1 + freqCount.get(self.persons[i],0)
+        for i in range(len(persons)):
+            freqCount[persons[i]] = 1 + freqCount.get(persons[i],0)
             
-            if max(freqCount.values()) > freqCount[self.persons[i]]:
+            if max(freqCount.values()) > freqCount[persons[i]]:
                 self.winner[i] = self.winner[i - 1] 
             else:
-                self.winner[i] = self.persons[i]
+                self.winner[i] = persons[i]
         
     def q(self, t: int) -> int:        
         left, right = -1, len(self.times)
