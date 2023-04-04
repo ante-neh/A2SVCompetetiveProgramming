@@ -10,13 +10,13 @@ class Solution:
                 return 
             
             for i in range(n):
-                if used[i+1] or ((idx % (i + 1)) != 0 and ((i + 1) % idx) != 0) :
+                if (used>>i)&1 or ((idx % (i + 1)) != 0 and ((i + 1) % idx) != 0) :
                     continue
                     
-                used[i+1] = True
+                used |= 1<<i
                 backtrack(used, idx + 1)
-                used[i+1] = False
+                used &= ~(1<<i)
                 
-        backtrack([False] * (n + 1), 1)
+        backtrack(0, 1)
         
         return res
