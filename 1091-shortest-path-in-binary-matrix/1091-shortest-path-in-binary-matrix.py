@@ -8,7 +8,7 @@ class Solution:
         shortestPath = 0
         directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         is_valid = lambda i, j: 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == 0
-        isLast = False
+        
         while queue:
             shortestPath += 1
             for i in range(len(queue)):
