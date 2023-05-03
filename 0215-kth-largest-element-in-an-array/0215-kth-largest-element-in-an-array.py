@@ -1,13 +1,10 @@
 class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        for i in range(len(nums)):
-            nums[i] *= -1
-            
+    def findKthLargest(self, nums: List[int], k: int) -> int:            
         heapify(nums)        
         kthNum = 0
         
-        for i in range(k):
+        for i in range(len(nums) - k + 1):
             kthNum = heappop(nums)
             
-        return kthNum * -1
+        return kthNum
         
