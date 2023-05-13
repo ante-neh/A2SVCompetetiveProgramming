@@ -1,19 +1,17 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        if x == 0:
-            return 0
-        
         def convert(n):
-            num = []
+            sum = 0
             while n > 0:
                 rem = n % 10
-                num.append(str(rem))
+                sum = sum * 10 + rem
                 n //= 10
                 
-            return num
+            return sum
         
-        nums = int("".join(convert(abs(x))))
         if x < 0:
-            nums = -1 * nums
-                   
-        return nums if -2 ** 31 <= nums <= 2 ** 31 else 0
+            num = -1 * convert(abs(x))
+        else:
+            num = convert(abs(x))
+        
+        return num if -2 ** 31 <= num <= 2 **31 else 0
