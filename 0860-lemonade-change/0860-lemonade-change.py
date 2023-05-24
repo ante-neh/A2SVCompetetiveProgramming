@@ -1,6 +1,6 @@
 class Solution:
     def lemonadeChange(self, bills: List[int]) -> bool:
-        billsFreq = Counter()
+        billsFreq = defaultdict(int)
         
         for bill in bills:
             if bill == 5:
