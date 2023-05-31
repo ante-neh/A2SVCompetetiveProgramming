@@ -1,17 +1,17 @@
 class Solution:
-    def __init__(self):
-        self.memo = {}
     def tribonacci(self, n: int) -> int:
-        if n == 0:
-            return 0
-        
-        if n <= 2:
+        if n < 2:
+            return n
+        if n == 2:
             return 1
         
-        if n not in self.memo:
-            self.memo[n] = self.tribonacci(n - 1) + self.tribonacci(n - 2) + self.tribonacci(n - 3)
-            
-        return self.memo[n]
-            
+        dp = [0 for i in range(n + 1)]
         
+        dp[0], dp[1], dp[2] = 0, 1, 1
+        
+        for num in range(3, n + 1):
+            dp[num] = dp[num - 1] + dp[num - 2] + dp[num - 3]
+            
+        return dp[-1]
+
         
