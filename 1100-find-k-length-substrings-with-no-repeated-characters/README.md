@@ -23,4 +23,3 @@ Note:
 1 <= S.length <= 10^4
 All characters of S are lowercase English letters.
 1 <= K <= 10^4
-Difficulty:
