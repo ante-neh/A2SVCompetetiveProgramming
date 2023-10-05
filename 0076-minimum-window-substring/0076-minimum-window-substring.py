@@ -1,46 +1,32 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        # Initialization: 
-            # need{elements in t}; 
-            # window{needed elements in window}; 
-            # valid counts the valid needed elements in window
-            # length set larger than the original length, if it does not change in the end, we should return none
-        left, right = 0, 0
-        need = dict()
-        window = dict()
-        valid = 0 
-        length = float('inf')
-        
-        for ele in t:
-            if ele not in need:
-                need.update({ele:1})
-            else:
-                need[ele] += 1
-                
-        while right < len(s):
-            ele = s[right]
-            right += 1
-            if ele in need:
-                if ele not in window:
-                    window.update({ele: 1})
-                else:
-                    window[ele] += 1
-                if window[ele] == need[ele]:
-                    valid += 1
-                    
-            while valid == len(need):
-                if right - left < length:
-                    length = right - left
-                    start, end = left, right
-                ele = s[left]
+        left = 0
+        minLength = float("inf")
+        minSubString = ""
+        tCount, sCount = defaultdict(int), defaultdict(int)
+        for c in t:
+            tCount[c] += 1
+
+        have, need = 0, len(tCount)
+            
+        for right in range(len(s)):
+            sCount[s[right]] += 1
+            
+            if s[right] in tCount and sCount[s[right]] == tCount[s[right]]:
+                have += 1
+
+            while have == need:
+                if right - left + 1 < minLength:
+                    minSubString = s[left:right + 1]
+                    minLength = right - left + 1
+
+                sCount[s[left]] -= 1
+
+                if s[left] in tCount and sCount[s[left]] < tCount[s[left]]:
+                    have -= 1
+
                 left += 1
-                if ele in need:
-                    if window[ele] == need[ele]:
-                        valid -= 1
-                    window[ele] -= 1
-               
-                    
-        if length == float('inf'):
-            return ""
-        else:
-            return s[start:end]
+
+        return minSubString
+
+
