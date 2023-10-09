@@ -1,14 +1,15 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        maxSub = nums[0]
-        curSum = 0
+        prefixSum = [0]
 
         for num in nums:
-            if curSum < 0:
-                curSum = 0
-            
-            curSum += num 
+            prefixSum.append(num + prefixSum[-1])
 
-            maxSub = max(maxSub, curSum)
+        minValue = float("inf")
+        maxSubArray = float("-inf")
 
-        return maxSub
+        for i in range(1, len(nums) + 1):
+            minValue = min(minValue, prefixSum[i - 1])
+            maxSubArray = max(maxSubArray, prefixSum[i] - minValue)
+
+        return maxSubArray
