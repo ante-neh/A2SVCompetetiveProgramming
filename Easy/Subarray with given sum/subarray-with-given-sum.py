@@ -1,23 +1,25 @@
 #User function Template for python3
 
 #Function to find a continuous sub-array which adds up to a given number.
+from collections import defaultdict
 class Solution:
     def subArraySum(self,arr, n, s): 
-       #Write your code her
-        curSum = arr[0]
-        left = 0
+        #Write your code her
+        sumDifferencePair = defaultdict(int)
+        sumDifferencePair[0] = 0
+        curSum = 0
+       
+        for right in range(len(arr)):
+            curSum += arr[right]
+            if curSum - s in sumDifferencePair:
+                return [sumDifferencePair[curSum - s] + 1, right + 1]
+               
+            sumDifferencePair[curSum] = right + 1
         
-        for right in range(1, n + 1):
-            while curSum > s and left + 1 < right:
-                curSum -= arr[left]
-                left += 1
-                
-            if curSum == s:
-                return [left + 1, right]
-            if right < n:   
-                curSum += arr[right]
-
+        
         return [-1]
+            
+        
 
 #{ 
  # Driver Code Starts
