@@ -5,18 +5,18 @@
 #         self.next = next
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        fast, slow = head, head
+        first, second, fast = head, head, head
 
         while fast and k > 1:
             fast = fast.next
             k -= 1
 
-        left = fast
-        while fast.next:
+        first = fast
+
+        while fast and fast.next:
             fast = fast.next
-            slow = slow.next
+            second = second.next
 
-
-        slow.val, left.val = left.val, slow.val
+        first.val, second.val = second.val, first.val
 
         return head
