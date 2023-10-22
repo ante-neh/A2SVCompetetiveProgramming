@@ -5,26 +5,24 @@
 #         self.next = next
 class Solution:
     def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        nums = []
-        dummy = ListNode()
-        cur = dummy
-        
-        while head:
-            nums.append(head.val)
-            head = head.next
-            
-        for i in range(1, len(nums)):
-            key = nums[i]
-            j = i - 1
-            
-            while j >= 0 and key < nums[j]:
-                nums[j + 1] = nums[j]
-                j -= 1
-                
-            nums[j + 1] = key
-            
-        for num in nums:
-            cur.next = ListNode(num)
-            cur = cur.next
-            
+        dummy = ListNode(0, head)
+        prev, cur = head, head.next
+
+        while cur:
+            if cur.val >= prev.val:
+                prev, cur = cur, cur.next
+                continue
+
+            temp = dummy
+
+            while cur.val > temp.next.val:
+                temp = temp.next
+
+
+            prev. next = cur.next
+            cur.next = temp.next
+            temp.next = cur
+
+            cur = prev.next
+
         return dummy.next
