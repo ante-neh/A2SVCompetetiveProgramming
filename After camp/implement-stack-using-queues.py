@@ -1,22 +1,31 @@
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+
 class MyStack:
 
     def __init__(self):
-        self.stack1 = deque()
-        self.stack2 = deque()
+        self.head = None
 
     def push(self, x: int) -> None:
-        self.stack1.append(x)
-        self.stack2.appendleft(x)
+        node = ListNode(x)
+        node.next = self.head
+        self.head = node
 
     def pop(self) -> int:
-        self.stack1.pop()
-        return self.stack2.popleft()
+        node = self.head
+        if self.head:
+            self.head = self.head.next
+
+        return node.val
         
     def top(self) -> int:
-        return self.stack2[0]
+        if self.head:
+            return self.head.val
 
     def empty(self) -> bool:
-        return len(self.stack2) == 0
+        return self.head == None
 
 
 # Your MyStack object will be instantiated and called as such:
