@@ -14,9 +14,7 @@ class Solution:
                 
             stack.append([num, index])
             
-            
         return nextGreaterElement
-
 
 #{ 
  # Driver Code Starts
