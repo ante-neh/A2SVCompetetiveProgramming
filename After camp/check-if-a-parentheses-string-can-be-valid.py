@@ -1,19 +1,32 @@
 class Solution:
     def canBeValid(self, s: str, locked: str) -> bool:
-        def validate(strs, lock, par):
-            balance, flip = 0, 0
-            for index, c in enumerate(strs):
-                if lock[index] == '1':
-                    balance += 1 if c == par else -1
+        if len(s) % 2 == 1:
+            return False 
+
+        flip, stack = [], []
+        
+        for i, c in enumerate(s):
+            if locked[i] == '0':
+                flip.append(i)
+
+            else:
+                if c == '(':
+                    stack.append(i)
 
                 else:
-                    flip += 1
+                    if stack:
+                        stack.pop()
+                    elif flip:
+                        flip.pop()
+                    else:
+                        return False
 
-                if flip + balance < 0:
-                    return False
+        while flip and stack:
+            if stack[-1] > flip[-1]:
+                return False
 
-            return balance <= flip
+            stack.pop()
+            flip.pop()
 
-
-        return len(s) % 2 == 0 and (validate(s, locked, '(') and validate(s[::-1], locked[::-1], ')'))
+        return len(stack) == 0
 
