@@ -4,10 +4,9 @@ class Solution:
 
         def backtrack(cur, i):
             if i == len(s):
-                newCur = ".".join(cur[:])
                 if len(cur) == 4:
-                    validIpAddresses.append(newCur)
-
+                    validIpAddresses.append(".".join(cur[:]))
+                    
                 return
 
             for j in range(i, len(s)):
@@ -22,7 +21,6 @@ class Solution:
         return validIpAddresses
 
     def isValid(self, s):
-        print(s)
         return len(s) == len(str(int(s))) and 0 <= int(s) and int(s) <= 255 
 
                 
