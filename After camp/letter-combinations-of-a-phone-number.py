@@ -2,25 +2,21 @@ class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         digitToLetter = defaultdict(list)
         letterCombinations = []
-        remaining = ["pqrs", "tuv", "wxyz"]
-        
-        i = 2
-        j = 0
-        while j < 15:
-            for c in range(3 if j != 7 or j != 9 else 4):
-                digitToLetter[i].append(chr(ord('a') + j))
-                j += 1
-            i += 1
-        
-        i = 7
-        for remain in remaining:
-            digitToLetter[i].append(remain)
-            i += 1
-            
+        digitToLetter= {
+            "2": "abc",
+            "3": "def", 
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
+        }
+
         s = []
 
         for c in digits:
-            s.append("".join(digitToLetter[int(c)]))
+            s.append(digitToLetter[c])
 
         def backtrack(cur, index):
             if len(cur) == len(digits):
