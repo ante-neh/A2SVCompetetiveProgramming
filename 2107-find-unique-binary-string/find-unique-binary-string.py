@@ -5,15 +5,18 @@ class Solution:
         
         def backtrack(cur):
             if len(cur) == length:
-                if cur not in nums:
-                    return cur
-
+                res = "".join(cur)
+                if res not in nums:
+                    return res 
                 return ""
 
-            addZero = backtrack(cur + "0")
-            if addZero:
-                return addZero
 
-            return backtrack(cur + "1")
+            for c in ['0', '1']:
+                cur.append(c)
+                res = backtrack(cur)
+                if res:
+                    return res
 
-        return backtrack("")
+                cur.pop()
+        
+        return backtrack([])
