@@ -1,21 +1,19 @@
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
-        combinations = set()
+        combinations = []
 
         def backtrack(cur, index):
-            if len(cur) == len(s):
-                combinations.add("".join(cur[:]))
-                return
+            if index >= len(s):
+                combinations.append(cur)
+                return 
 
-            for i in range(index, len(s)):
-                cur.append(s[i].upper())
-                backtrack(cur, i + 1)
-                cur.pop()
-                cur.append(s[i].lower())
-                backtrack(cur, i + 1)
-                cur.pop()
+            if s[index].isalpha():
+                backtrack(cur + s[index].lower(), index + 1)
+                backtrack(cur + s[index].upper(), index + 1)
 
+            else:
+                backtrack(cur + s[index], index + 1)
 
-        backtrack([], 0)
-        
+        backtrack("", 0)
+
         return combinations
