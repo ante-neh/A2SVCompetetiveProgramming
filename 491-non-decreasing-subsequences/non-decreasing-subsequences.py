@@ -9,13 +9,8 @@ class Solution:
             if len(cur) >= 2:
                 subSequences.add(tuple(cur[:]))
 
-            for i in range(index, len(nums)):
-                if not cur:
-                    cur.append(nums[i])
-                    backtrack(cur, i + 1)
-                    cur.pop()
-                                       
-                if (cur and cur[-1] <= nums[i]):
+            for i in range(index, len(nums)):                                       
+                if not cur or (cur and cur[-1] <= nums[i]):
                     cur.append(nums[i])
                     backtrack(cur, i + 1)
                     cur.pop()
