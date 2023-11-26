@@ -5,15 +5,16 @@ class Solution:
             return -1
 
         def isValid(mid):
-            bouquet, flowers = 0, 0
+            bouquet, count = 0, 0
             for bloom in bloomDay:
-                if bloom > mid:
-                    flowers = 0
-
+                if bloom <= mid:
+                    count += 1
                 else:
-                    bouquet += (flowers + 1) // k
-                    flowers = (flowers + 1) % k
+                    bouquet += count // k
+                    count = 0
 
+            bouquet += count // k
+            
             return bouquet >= m
 
         left, right = 0, max(bloomDay) + 1
