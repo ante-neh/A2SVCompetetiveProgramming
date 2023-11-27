@@ -2,24 +2,20 @@ class Solution:
     def smallestDistancePair(self, nums: List[int], k: int) -> int:
         nums.sort()
         def isValid(mid):
-            count = 0
-            j, i = 0, 0
-            while i < len(nums) or j < len(nums):
-                while j < len(nums) and nums[j] - nums[i] <= mid:
-                    j += 1
+            count = left = 0
+            for right in range(len(nums)):
+                while nums[right] - nums[left] > mid:
+                    left += 1
+                count += right - left
 
-                count += j - i - 1
-                i += 1
+            return count >= k
 
-            return count >= k 
-
-        left, right = -1, max(nums) - min(nums)
+        left, right = -1, nums[-1] - nums[0]
 
         while left + 1 < right:
             mid = left + (right - left) // 2
             if isValid(mid):
                 right = mid
-
             else:
                 left = mid
 
