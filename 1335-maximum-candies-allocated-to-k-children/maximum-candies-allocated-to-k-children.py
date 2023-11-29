@@ -8,7 +8,7 @@ class Solution:
             return count >= k
 
 
-        left, right = 0, max(candies) + 1
+        left, right = 0, sum(candies) // k + 1
 
         while left + 1 < right:
             mid = left + (right - left) // 2
