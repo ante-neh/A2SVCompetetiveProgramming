@@ -7,13 +7,17 @@ class Solution:
 
             return count >= k
 
+
         left, right = 0, max(candies) + 1
 
         while left + 1 < right:
             mid = left + (right - left) // 2
             if isValid(mid):
                 left = mid
+
             else:
                 right = mid
 
         return left 
+
+            
