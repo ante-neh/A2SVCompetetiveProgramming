@@ -9,19 +9,10 @@ class Solution:
         def dfs(node1, node2):
             if not node1 and not node2:
                 return True
-
-            if not node1 and node2:
+            
+            if not node1 or not node2:
                 return False
 
-            if not node2 and node1:
-                return False
-
-            if node1.val != node2.val:
-                return False
-                
-            left = dfs(node1.left, node2.left)
-            right = dfs(node1.right, node2.right)
-
-            return left and right
+            return node1.val == node2.val and dfs(node1.left, node2.left) and dfs(node1.right, node2.right)
 
         return dfs(p, q)
