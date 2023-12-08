@@ -7,19 +7,24 @@
 class Solution:
     def minDiffInBST(self, root: Optional[TreeNode]) -> int:
         minDiff = float("inf")
-        inorder = []
+        prev = None
 
         def dfs(node):
+            nonlocal prev
+            nonlocal minDiff
+
             if not node:
-                return
+                return 
 
             dfs(node.left)
-            inorder.append(node.val)
+            if prev is not None:
+                minDiff = min(minDiff, node.val - prev.val)
+
+            prev = node
             dfs(node.right)
 
         dfs(root)
 
-        for i in range(1, len(inorder)):
-            minDiff = min(minDiff, inorder[i] - inorder[i - 1])
-
         return minDiff
+
+            
