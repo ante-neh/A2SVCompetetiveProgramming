@@ -1,12 +1,14 @@
 class Solution:
     def findSpecialInteger(self, arr: List[int]) -> int:
-        numFreq = defaultdict(int)
+        left = 0
 
-        for num in arr:
-            numFreq[num] += 1
+        for right in range(len(arr)):
+            if arr[right] != arr[left]:
+                if (right - left) / len(arr) > 0.25:
+                    return arr[left]
+                
+                left = right
 
-        for val, freq in numFreq.items():
-            if freq / len(arr) > 0.25:
-                return val
+        return arr[left]
 
             
