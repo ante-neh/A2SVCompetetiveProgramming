@@ -12,18 +12,15 @@ class Solution:
         def dfs(node):
             nonlocal lowestCommonAncestor
             if not node:
-                return 
-            if (node.val <= p.val and node.val >= q.val) or (node.val >= p.val and node.val <= q.val):
+                return False
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+            mid = node.val == p.val or node.val == q.val
+            if mid + left + right >= 2:
                 lowestCommonAncestor = node
-                return 
 
-            if node.val > p.val and node.val > p.val:
-                dfs(node.left)
-
-            if node.val < p.val and node.val < p.val:
-                dfs(node.right)
-
-            
+            return left or mid or right
 
         dfs(root)
 
