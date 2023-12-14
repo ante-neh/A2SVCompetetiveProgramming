@@ -9,31 +9,30 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        if not root:
-            return 
-
-        preorder = []
         def dfs(node):
             if not node:
-                return
+                return [None, None]
             
-            preorder.append(node.val)
-            dfs(node.left)
-            dfs(node.right)
+            if not node.left and not node.right:
+                return [node, node]
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            if not left[0] and right[0]:
+                node.right = right[0]
+                node.left = None
+                return [node, right[1]]
+
+            if not right[0] and left[0]:
+                node.right = left[0]
+                node.left = None
+                return [node, left[1]]
+            
+            node.right = left[0]
+            node.left = None
+            left[1].right = right[0]
+            
+            return [node, right[1]]
 
         dfs(root)
-        preorder.pop(0)
-        index = 0
-        def build(node):
-            nonlocal index
-            if index >= len(preorder):
-                return
-
-            node.right = TreeNode(preorder[index])
-            node.left = None
-
-            index += 1
-            build(node.right)
-
-        build(root)
-
