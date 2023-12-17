@@ -6,18 +6,20 @@
 #         self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        maxDifference = 0
+        result = True
         def dfs(node):
-            nonlocal maxDifference
+            nonlocal result
             if not node:
-                return 0
+                return -1
 
             left = 1 + dfs(node.left)
             right = 1 + dfs(node.right)
-            maxDifference = max(abs(right - left), maxDifference)
 
-            return max(right, left)
+            if abs(right - left) > 1:
+                result = False
+            
+            return max(left, right)
 
         dfs(root)
-        
-        return maxDifference <= 1
+
+        return result
