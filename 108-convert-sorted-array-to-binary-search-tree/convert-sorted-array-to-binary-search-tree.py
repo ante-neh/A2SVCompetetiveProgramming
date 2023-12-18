@@ -6,14 +6,18 @@
 #         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        def dfs(nums):
-            if len(nums) == 0:
+        def dfs(left, right):
+            if left >= right:
                 return
-            mid = len(nums) // 2
+
+            mid = left + (right - left) // 2
             root = TreeNode(nums[mid])
-            root.left = dfs(nums[:mid])
-            root.right = dfs(nums[mid + 1:])
+            root.left = dfs(left, mid)
+            root.right = dfs(mid + 1, right)
 
             return root
 
-        return dfs(nums)
+        return dfs(0, len(nums))
+
+
+        
