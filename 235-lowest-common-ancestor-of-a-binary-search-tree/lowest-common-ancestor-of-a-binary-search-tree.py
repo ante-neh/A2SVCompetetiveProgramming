@@ -16,11 +16,13 @@ class Solution:
 
             left = dfs(node.left)
             right = dfs(node.right)
+
             mid = node.val == p.val or node.val == q.val
+
             if mid + left + right >= 2:
                 lowestCommonAncestor = node
 
-            return left or mid or right
+            return left or right or mid
 
         dfs(root)
 
