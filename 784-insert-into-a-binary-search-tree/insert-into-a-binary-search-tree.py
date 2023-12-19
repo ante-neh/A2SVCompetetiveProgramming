@@ -12,13 +12,15 @@ class Solution:
         def dfs(node):
             if not node:
                 return TreeNode(val)
-            elif val < node.val:
-                node.left = dfs(node.left)
-                return node
-            else:
+
+            if node.val < val:
                 node.right = dfs(node.right)
+                return node
+            
+            else:
+                node.left = dfs(node.left)
                 return node
 
         dfs(root)
 
-        return root  
+        return root
