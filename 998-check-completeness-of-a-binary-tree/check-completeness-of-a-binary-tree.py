@@ -14,10 +14,11 @@ class Solution:
                 node = queue.popleft()
                 if not node:
                     flag = True
-                
+
                 else:
                     if flag:
                         return False
+
                     queue.append(node.left)
                     queue.append(node.right)
 
