@@ -9,10 +9,10 @@ class Solution:
         if not inorder or not postorder:
             return
 
-        index = inorder.index(postorder[-1])
-        root = TreeNode(postorder.pop(-1))
+        node = postorder.pop()
+        index = inorder.index(node)
+        root = TreeNode(node)
+        root.right = self.buildTree( inorder[index + 1:], postorder )
+        root.left = self.buildTree( inorder[:index], postorder)
 
-        root.right = self.buildTree(inorder[index + 1:], postorder[index:])
-        root.left = self.buildTree(inorder[:index], postorder[:index])
-
-        return root 
+        return root
