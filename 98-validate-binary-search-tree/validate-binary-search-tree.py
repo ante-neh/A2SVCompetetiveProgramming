@@ -6,15 +6,37 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node, low, high):
+        validate = True
+        def dfs(node):
+            nonlocal validate
             if not node:
-                return True
+                return 
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            if left and right:
+                if node.val <= left[0] or node.val <= left[1] or node.val >= right[0] or node.val >= right[1]:
+                    validate = False
+
+                return [min(left[0], right[0], node.val), max(left[1], right[1], node.val)]
+
+            elif left:
+                if node.val <= left[0] or node.val <= left[1]:
+                    validate = False
+                
+                return [min(node.val, left[0]), max(node.val, left[1])]
             
-            if low < node.val < high:
-                return dfs(node.left, low, node.val) and dfs(node.right, node.val, high)
+            elif right:
+                if node.val >= right[0] or node.val >= right[1]:
+                    validate = False
+
+                return [min(node.val, right[0]), max(node.val, right[1])]
 
             else:
-                return False
+                return [node.val, node.val]
 
+        dfs(root)
 
-        return dfs(root, float("-inf"), float("inf"))
+        return validate
+
