@@ -6,30 +6,18 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        leftMostValue = [0, root.val]
+        leftMostValue = root.val
+        queue = deque([root])
 
-        def dfs(node, depth):
-            nonlocal leftMostValue
-            if not node:
-                return [float("-inf"), None]
+        while queue:
+            leftMostVal = queue[0].val
+            for i in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
                 
-            if not node.left and not node.right:
-                return [depth, node.val]
+        return leftMostVal
 
-            left = dfs(node.left, depth + 1)
-            right = dfs(node.right, depth + 1)
-
-            if leftMostValue[0] < left[0]:
-                leftMostValue[1] = left[1]
-                leftMostValue[0] = left[0]
-            
-            if leftMostValue[0] < right[0]:
-                leftMostValue[1] = right[1]
-                leftMostValue[0] = right[0]
-
-            return [depth, node.val]
-
-        dfs(root, 0)
-
-        return leftMostValue[1]
 
