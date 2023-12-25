@@ -15,11 +15,11 @@ class Solution:
 
             left = dfs(node.left)
             right = dfs(node.right)
-            maxPath = max(maxPath, max(left, 0) + max(right, 0) + node.val)
 
-            return node.val + max(max(left, 0), max(0, right))
+            maxPath = max(maxPath, node.val + left + right, node.val, node.val + left, node.val + right)
+
+            return max(node.val + max(left, right), node.val)
 
         dfs(root)
 
         return maxPath
-        
