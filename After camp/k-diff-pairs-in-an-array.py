@@ -6,12 +6,10 @@ class Solution:
         visited.add(float("inf"))
 
         for index, num in enumerate(nums):
-            result1, result2 = self.binarySearch(nums, num - k), self.binarySearch(nums, num + k)
-            if (result1[0] not in visited and result1[1] != index)  or (result2[0] not in visited and result2[1] != index):
+            result = self.binarySearch(nums, num + k)
+            if result[0] != float("inf") and (result[0], num) not in visited and result[1] != index:
                 count += 1
-                visited.add(result1[0])
-                visited.add(result2[0])
-                visited.add(num)
+                visited.add((result[0], num))
 
         return count 
 
