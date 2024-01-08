@@ -18,14 +18,14 @@ class Solution:
 
             if len(left) == k:
                 result.extend(left)
-                return left
+                return
 
             elif len(left) > k:
                 return quickSort(left, k)
 
             elif len(left) + len(mid) == k:
                 result.extend(left + mid)
-                return result
+                return
 
             else:
                 result.extend(left + mid)
