@@ -18,16 +18,6 @@ class Solution:
 
             return result
 
-        result1 = dfs(root1, [])
-        result2 = dfs(root2, [])
-        
-        
-        if len(result1) != len(result2):
-            return False 
 
-        for i in range(len(result1)):
-            if result1[i] != result2[i]:
-                return False
-
-        return True
+        return dfs(root1, []) == dfs(root2, [])
 
