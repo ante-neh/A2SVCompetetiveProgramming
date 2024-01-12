@@ -4,3 +4,5 @@ class Solution:
             right = right & (right - 1)
 
         return left & right
+
+        #use Brian Kernighan's Algorithm
