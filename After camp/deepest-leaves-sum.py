@@ -24,6 +24,4 @@ class Solution:
 
             return right
 
-        result = dfs(root, 0)
-
-        return result[0]
+        return dfs(root, 0)[0]
