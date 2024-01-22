@@ -1,8 +1,11 @@
 class Solution:
     def rangeBitwiseAnd(self, left: int, right: int) -> int:
-        while left < right:
-            right = right & (right - 1)
+        count = 0
+        while left != right:
+            left >>= 1
+            right >>= 1
+            count += 1
 
-        return left & right
+        return right << count
 
-        #use Brian Kernighan's Algorithm
+
