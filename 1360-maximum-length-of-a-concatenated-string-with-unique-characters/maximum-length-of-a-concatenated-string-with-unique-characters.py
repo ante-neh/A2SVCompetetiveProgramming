@@ -1,22 +1,22 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        maxLength = 0
-        combinations = []
-
-        def backtrack(index, cur):
-            if index > len(arr):
+        generated = []
+        maxLen = 0
+        def dfs(cur, start):
+            if start > len(arr):
                 return
 
-            combinations.append("".join(cur[:]))
+            generated.append("".join(cur[:]))
+            for i in range(start, len(arr)):
+                dfs(cur + arr[i], i + 1)
 
-            for i in range(index, len(arr)):
-                backtrack(i + 1, cur + arr[i])
-                    
 
-        backtrack(0, "")
-        
-        for comb in combinations:
-            if len(Counter(comb)) == len(comb):
-                maxLength = max(maxLength, len(comb))
-                
-        return maxLength
+        dfs("", 0)
+
+
+        for gen in generated:
+            if len(gen) == len(set(gen)):
+                maxLen = max(maxLen, len(gen))
+
+
+        return maxLen
