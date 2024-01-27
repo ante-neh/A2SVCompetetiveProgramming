@@ -1,16 +1,18 @@
 class Solution:
     def countTriplets(self, arr: List[int]) -> int:
-        preXor = [arr[0]]
-        for i in range(1, len(arr)):
-            preXor.append(preXor[i - 1] ^ arr[i])
-        
-        preXor = [0] + preXor
+        # use the subarray sum equal k approach 
+        xorFreq = {0:[0, 1]}
+        preXor = 0
         count = 0
-        for i in range(1, len(preXor)):
-            for j in range(i + 1, len(preXor)):
-                for k in range(j, len(preXor)):
-                    if preXor[j - 1] ^ preXor[i - 1] == preXor[k] ^ preXor[j - 1]:
-                        count += 1
 
+        for i in range(len(arr)):
+            preXor ^= arr[i]
+            if preXor in xorFreq:
+                count += (i * xorFreq[preXor][1]) - xorFreq[preXor][0]
+                xorFreq[preXor][0] += i + 1
+                xorFreq[preXor][1] += 1
 
-        return count 
+            else:
+                xorFreq[preXor] = [i +1, 1]
+
+        return count
