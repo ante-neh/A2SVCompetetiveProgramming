@@ -2,16 +2,20 @@ class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         single = 0
 
-        for shift in range(32):
+        for i in range(32):
             count = 0
             for num in nums:
-                count += (num >> shift) & 1
+                if num & (1 << i):
+                    count += 1
 
-            if count % 3 != 0:
-                single |= (count % 3 << shift)
+            if count % 3:
+                single |= (1 << i)
 
-        if single >= 1 << 31:
-            single = (2 ** 32 - single) * -1
+
+        if single & (1 << 31):
+            if single > 2 ** 31:
+                single = ~(single - 1) % 2 ** 31
+
+            single *= -1
 
         return single
-            
