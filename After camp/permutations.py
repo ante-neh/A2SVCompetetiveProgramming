@@ -1,18 +1,21 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        results = []
+        result = []
         visited = set()
 
-        def backtrack(currentPath):
-            if len(currentPath) == len(nums):
-                results.append(currentPath)
+        def dfs(cur):
+            if len(cur) == len(nums):
+                result.append(cur[:])
+                return
 
-            for index in range(len(nums)):
-                if index not in visited:
-                    visited.add(index)
-                    backtrack(currentPath + [nums[index]])
-                    visited.remove(index)
+            for i in range(len(nums)):
+                if not i in visited:
+                    visited.add(i)
+                    cur.append(nums[i])
+                    dfs(cur)
+                    visited.remove(i)
+                    cur.pop()
 
-        backtrack([])
+        dfs([])
 
-        return results
+        return result
