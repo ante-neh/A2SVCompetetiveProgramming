@@ -1,21 +1,22 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        result = []
-        visited = set()
+        visited = 0
+        permutations = []
 
-        def dfs(cur):
+        def backtrack(cur):
+            nonlocal visited
             if len(cur) == len(nums):
-                result.append(cur[:])
+                permutations.append(cur[:])
                 return
 
-            for i in range(len(nums)):
-                if not i in visited:
-                    visited.add(i)
-                    cur.append(nums[i])
-                    dfs(cur)
-                    visited.remove(i)
+            for index, num in enumerate(nums):
+                if visited & (1 << index) == 0:
+                    visited |= (1 << index)
+                    cur.append(num)
+                    backtrack(cur)
                     cur.pop()
+                    visited ^= (1 << index)
+        
+        backtrack([])
 
-        dfs([])
-
-        return result
+        return permutations
