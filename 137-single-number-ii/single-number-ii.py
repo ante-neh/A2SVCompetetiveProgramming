@@ -5,17 +5,18 @@ class Solution:
         for i in range(32):
             count = 0
             for num in nums:
-                if num & (1 << i):
+                if num & 1 << i:
                     count += 1
 
             if count % 3:
-                single |= (1 << i)
-
-
-        if single & (1 << 31):
-            if single > 2 ** 31:
-                single = ~(single - 1) % 2 ** 31
-
-            single *= -1
+                single |= 1 << i
+        if single & 1 << 31:
+            single = -1 * single
+            if single < -2 ** 31:
+                single %= 2 ** 31
+                single = -1 * single
+                
+        elif single > 2 ** 31:
+            single %= 2 ** 31
 
         return single
