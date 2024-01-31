@@ -1,14 +1,13 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        numberOfDays = [0] * len(temperatures)
-        queue = deque()
+        waitingDays = [0] * len(temperatures)
+        stack = []
 
-        for index, val in enumerate(temperatures):
-            while queue and queue[-1][0] < val:
-                value, ind = queue.pop()
-                numberOfDays[ind] = index - ind
+        for index, temperature in enumerate(temperatures):
+            while stack and stack[-1][0] < temperature:
+                val, i = stack.pop()
+                waitingDays[i] = index - i
 
-            queue.append([val, index])
+            stack.append([temperature, index])
 
-        
-        return numberOfDays
+        return waitingDays
