@@ -1,18 +1,15 @@
 class Solution:
     def hasGroupsSizeX(self, deck: List[int]) -> bool:
         deckFreq = Counter(deck)
-        maxFreq = max(deckFreq.values())
+        x = 0
+        for val in deckFreq.values():
+            x = self.gcd(max(val, x), min(val, x))
 
-        for x in range(2, maxFreq + 1):
-            flag = False
-            for item in deckFreq.items():
-                if item[1] % x:
-                    flag = True
-                    break
+        return x > 1
 
-            if not flag:
-                return True
+    def gcd(self, a, b):
+        if b == 0:
+            return a
 
-        return False
-
+        return self.gcd(b, a % b)
             
