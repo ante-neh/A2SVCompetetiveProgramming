@@ -1,39 +1,42 @@
 class Solution:
-    def dfs(self, node, dest, adj, vis, res, cal):
-        vis[node] = 1
-        if node == dest:
-            res[0] = cal
-            return True
-
-        if node in adj:
-            for nod, val in adj[node]:
-                if vis[nod] == 0:
-                    if self.dfs(nod, dest, adj, vis, res, cal * val):
-                        return True
-        return False
-
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        adj = {}
-        i = 0
-        for u, v in equations:
+        visited = set()
+        self.root = {}
+        result = []
 
-            if u in adj: adj[u].append([v, values[i]])
-            else: adj[u] = [[v, values[i]]]
-
-            if v in adj: adj[v].append([u, 1/values[i]])
-            else: adj[v] = [[u, 1/values[i]]]
-
-            i += 1
+        for dividend, divisor in equations:
+            visited.add(dividend)
+            visited.add(divisor)
+            self.root[dividend] = (dividend, 1)
+            self.root[divisor] = (divisor, 1)
         
-        ans = []
-        for u, v in queries:
-            vis = { key: 0 for key in adj}
-            res = [-1.0]
+        for i, equation in enumerate(equations):
+            self.union(equation[0], equation[1], values[i])
 
-            if u in adj and v in adj:
-                    if self.dfs(u, v, adj, vis, res, 1):
-                        ans.append(res[0])
-                    else: ans.append(-1.0)
-            else: ans.append(-1.0)
-        
-        return ans
+        for query in queries:
+            if query[0] in visited and query[1] in visited:
+                rootX = self.find(query[0])
+                rootY = self.find(query[1])
+                if rootX[0] != rootY[0]:
+                    result.append(-1.0)
+                else:
+                    result.append(rootX[1] / rootY[1] )
+            else:
+                result.append(-1.0)
+
+        return result
+
+    def find(self, x):
+        groupId, nodeWeight = self.root[x]
+        if x != groupId:
+            head, weight = self.find(groupId)
+            self.root[x] = (head, weight * nodeWeight)
+
+        return self.root[x]
+
+    def union(self, dividend, divisor, weight):
+        headDd, weightDd = self.find(dividend)
+        headDv, weightDv = self.find(divisor)
+
+        if headDd != headDv:
+            self.root[headDd] = (headDv, (weight * weightDv) / weightDd)
